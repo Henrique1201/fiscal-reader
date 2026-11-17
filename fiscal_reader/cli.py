@@ -12,7 +12,6 @@ from .extract import extract
 from .llm import HEADER_FIELDS, ITEM_FIELDS, MODEL, OLLAMA_MODEL, interpret
 
 CSV_FIELDS = ("arquivo", "formato", "motor_ocr", "confianca_ocr_media", *HEADER_FIELDS, *ITEM_FIELDS, "observacoes", "status_revisao")
-AUTHORITATIVE_ITEM_FIELDS = tuple(name for name in ITEM_FIELDS if name != "categoria_item")
 SUPPORTED_SUFFIXES = {".xml", ".pdf", ".png", ".jpg", ".jpeg", ".tif", ".tiff"}
 
 
@@ -34,16 +33,16 @@ def _rows(path: Path, features: dict, result: dict) -> list[dict]:
     header = result["cabecalho"].copy()
     items = result["itens"]
     if features["formato"] == "xml_nfe":
-        header.update(features["cabecalho"])
+        header["data_emissao"] = features["cabecalho"].get("data_emissao")
         if header["data_emissao"]:
             header["data_emissao"] = header["data_emissao"][:10]
         items = [
-            {**item, **{name: original.get(name) for name in AUTHORITATIVE_ITEM_FIELDS}}
+            {name: original.get(name) for name in ITEM_FIELDS}
             for item, original in zip(items, features["itens"], strict=True)
         ]
     if not items:
         items = [{name: None for name in ITEM_FIELDS}]
-    status = "conferir_categoria" if features["formato"] == "xml_nfe" else "revisar_extracao"
+    status = "extraido_xml" if features["formato"] == "xml_nfe" else "revisar_extracao"
     scores = [line["confianca"] for line in features.get("linhas_ocr", []) if isinstance(line.get("confianca"), (int, float))]
     average = f"{sum(scores) / len(scores):.3f}" if scores else None
     return [
@@ -54,8 +53,19 @@ def _rows(path: Path, features: dict, result: dict) -> list[dict]:
     ]
 
 
+def _result_for_features(features: dict, *, provider: str, model: str | None) -> dict:
+    """Usa os itens estruturados do XML ou interpreta o OCR com o provedor escolhido."""
+    if features["formato"] == "xml_nfe":
+        return {
+            "cabecalho": {"data_emissao": features["cabecalho"].get("data_emissao")},
+            "itens": [{name: item.get(name) for name in ITEM_FIELDS} for item in features["itens"]],
+            "observacoes": None,
+        }
+    return interpret(features, model=model, provider=provider)
+
+
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description="Extrai notas fiscais e gera tabela CSV com apoio de LLM")
+    parser = argparse.ArgumentParser(description="Extrai itens, quantidades e preços de notas e recibos")
     parser.add_argument("arquivos", nargs="+", type=Path, help="XML, PDF, imagem ou pasta com notas")
     parser.add_argument("-o", "--saida", type=Path, default=Path("notas.csv"), help="CSV de saída (padrão: notas.csv)")
     local_modes = parser.add_mutually_exclusive_group()
@@ -84,7 +94,8 @@ def main(argv: list[str] | None = None) -> int:
             if args.features_only:
                 print(json.dumps({"arquivo": str(path), "features": features}, ensure_ascii=False))
                 continue
-            rows.extend(_rows(path, features, interpret(features, model=args.model, provider=args.provider)))
+            result = _result_for_features(features, model=args.model, provider=args.provider)
+            rows.extend(_rows(path, features, result))
             print(f"OK: {path}", file=sys.stderr)
         except (ValueError, OSError) as exc:
             had_error = True
