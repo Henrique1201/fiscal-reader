@@ -1,0 +1,109 @@
+{
+  "source": "https://huggingface.co/datasets/naver-clova-ix/cord-v2",
+  "api": "https://datasets-server.huggingface.co/rows?dataset=naver-clova-ix%2Fcord-v2&config=default&split=test&offset=0&length=100",
+  "dataset": "naver-clova-ix/cord-v2",
+  "split": "test",
+  "samples": [
+    {
+      "id": "cord_test_013",
+      "row_idx": 13,
+      "split": "test",
+      "image": "images/cord_test_013.jpg",
+      "image_sha256": "2f43f90f4470e7a64904c9429c208b73db32e3703bc2660da5eec35eefadd2ac",
+      "label": "labels_original/cord_test_013.json",
+      "label_sha256": "bce96a89897714ab35bd024bb4d6d34150a68ddd07ee629a9b87988f5c8df565",
+      "item_count": 2
+    },
+    {
+      "id": "cord_test_021",
+      "row_idx": 21,
+      "split": "test",
+      "image": "images/cord_test_021.jpg",
+      "image_sha256": "6291c25b08505ad91ae51c39eab33fbb50233c26e38fd6435b9ed857bd817fea",
+      "label": "labels_original/cord_test_021.json",
+      "label_sha256": "4d83d59e0a788d55bffea9e5d785bf0876b521a249245ae3fa7774b7434657de",
+      "item_count": 2
+    },
+    {
+      "id": "cord_test_024",
+      "row_idx": 24,
+      "split": "test",
+      "image": "images/cord_test_024.jpg",
+      "image_sha256": "d65e1061625a27c8819d540dcff3868536d923f2f9b69ed0903b6ce1f827964a",
+      "label": "labels_original/cord_test_024.json",
+      "label_sha256": "22a23cba38056302fcb4eb43758266d49b1ad83386598b5eb78241500591a14c",
+      "item_count": 3
+    },
+    {
+      "id": "cord_test_039",
+      "row_idx": 39,
+      "split": "test",
+      "image": "images/cord_test_039.jpg",
+      "image_sha256": "41549064b3521fbbde370d85eaf674c00971eb653387dfe31dc39ec386709276",
+      "label": "labels_original/cord_test_039.json",
+      "label_sha256": "ca444e9b4f5c5c58deb01166d05d7e197e2b9e6ce43d2146bf00c3f4c3192b0a",
+      "item_count": 3
+    },
+    {
+      "id": "cord_test_047",
+      "row_idx": 47,
+      "split": "test",
+      "image": "images/cord_test_047.jpg",
+      "image_sha256": "2a71024faca3c935dd015c3e6d11690b626c34c7c3212e827126ce61b251ffe5",
+      "label": "labels_original/cord_test_047.json",
+      "label_sha256": "f0e5d34cc6a76c7f9947d6a62590b6583192a0da67e66dc656aa6b63f69dc63a",
+      "item_count": 3
+    },
+    {
+      "id": "cord_test_060",
+      "row_idx": 60,
+      "split": "test",
+      "image": "images/cord_test_060.jpg",
+      "image_sha256": "e64211d56b782697bb1bea64d2597ebdfdb65b51a07bfef54f4232d86fa42eb0",
+      "label": "labels_original/cord_test_060.json",
+      "label_sha256": "5ad636de07851bb47218cdd983bfd798810e8d95dc803d169f78fc9e11a97634",
+      "item_count": 2
+    },
+    {
+      "id": "cord_test_061",
+      "row_idx": 61,
+      "split": "test",
+      "image": "images/cord_test_061.jpg",
+      "image_sha256": "395f8a99f3ef61f68414afa3bc444875851ea257b8ebe148f205e69f759fb451",
+      "label": "labels_original/cord_test_061.json",
+      "label_sha256": "02234311d6ce68fcd197141f8ff7815dd43b4b7f14f387630fbbdc8e5ec0a49c",
+      "item_count": 6
+    },
+    {
+      "id": "cord_test_079",
+      "row_idx": 79,
+      "split": "test",
+      "image": "images/cord_test_079.jpg",
+      "image_sha256": "3882ac0efc36551a241182bb91db6eb3d4e2864c296db2a9b4640197399b2858",
+      "label": "labels_original/cord_test_079.json",
+      "label_sha256": "4eddf8b6b13c1a178dff06eb5a08ff2f4e193dfce1b85db31ce715f9abd8f037",
+      "item_count": 2
+    },
+    {
+      "id": "cord_test_081",
+      "row_idx": 81,
+      "split": "test",
+      "image": "images/cord_test_081.jpg",
+      "image_sha256": "d52c29504ebebd83985353e2bdfee416dd43e2f09b44039cee0ed9a8cf011419",
+      "label": "labels_original/cord_test_081.json",
+      "label_sha256": "5e926bbff281f09e719c6e2b57897f83581189d0d0a94ae17f41ff6b58418214",
+      "item_count": 3
+    },
+    {
+      "id": "cord_test_082",
+      "row_idx": 82,
+      "split": "test",
+      "image": "images/cord_test_082.jpg",
+      "image_sha256": "f6cf2633ff49b168a509b0aef4c3b653cf11642454810a19b466af3d26516b45",
+      "label": "labels_original/cord_test_082.json",
+      "label_sha256": "16943f6d1db646f59c650c9b1333995266d43ceaa0245a20f1c9937d6116fc7e",
+      "item_count": 3
+    }
+  ],
+  "revision": "7f0115a4b758a71d6473b8d085751692da2fef98"
+}

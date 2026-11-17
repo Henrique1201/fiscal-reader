@@ -1,0 +1,5 @@
+﻿arquivo;formato;motor_ocr;confianca_ocr_media;data_emissao;descricao;quantidade;valor_unitario;valor_total_item;observacoes;status_revisao
+benchmarks/cord_v2/images/cord_test_082.jpg;jpg;paddle;0.976;;Chocolate Log Cake;1;115000;115000;;revisar_extracao
+benchmarks/cord_v2/images/cord_test_082.jpg;jpg;paddle;0.976;;Snowman Cake Chocolate;1;60000;60000;;revisar_extracao
+benchmarks/cord_v2/images/cord_test_082.jpg;jpg;paddle;0.976;;Strawberry Log Cake;2;105000;210000;;revisar_extracao
+benchmarks/cord_v2/images/cord_test_039.jpg;jpg;paddle;0.688;;HPL754DR LUNCH B0X 3P SET W/RED BAG & SPOO;;;;A linha com '8 PCS' e 'N.' está próxima ao final do documento, mas não há valores de preço associados. A descrição do produto está presente, mas não há valores numéricos de quantidade ou preço unitário ou total associados. Não foi possível identificar os valores de preço ou quantidade para o item. A quantidade '8 PCS' pode ser interpretada como quantidade, mas não há valor unitário ou total associado. Portanto, não é possível extrair valores completos para o item.;revisar_extracao

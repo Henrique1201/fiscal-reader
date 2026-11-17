@@ -1,0 +1,210 @@
+{
+  "source": "https://zenodo.org/records/6371710",
+  "doi": "10.5281/zenodo.6371710",
+  "samples": [
+    {
+      "id": "20210316_223932",
+      "image": "images/20210316_223932.jpg",
+      "image_sha256": "f35392ae9968ce29368c5e674f34cb374f495f5242de48f9a8d4fd88d8d39659",
+      "label": "labels_original/20210316_223932.txt",
+      "label_sha256": "87ce4dc877ff05695af26be098b9c52c57da83352979349dd1024f3616007f51",
+      "fields": {
+        "company": "brisa - concessão rodoviária s.a.",
+        "date": "2019-01-23",
+        "address": "quinta da torre da aguilha edificio brisa 2785-599 são domingos de rana",
+        "total": "1,35",
+        "invoice_number": "FS 05021061902/0018579",
+        "nif_buyer": "",
+        "iva_amount": "",
+        "nif_seller": "502790024"
+      }
+    },
+    {
+      "id": "20210318_111551",
+      "image": "images/20210318_111551.jpg",
+      "image_sha256": "2f092f8f02dbd35bcb8aa44596307127f558f913d2844270d55d7dfc1c6c5d51",
+      "label": "labels_original/20210318_111551.txt",
+      "label_sha256": "f2e57776c730bba41be2decdce8fec17d3d5815d9ce5d3108cd644e4b198cdc1",
+      "fields": {
+        "company": "ferragens ideal da boavista, lda",
+        "date": "2019-01-11",
+        "address": "rua da boavista n-172 1200-070 lx",
+        "total": "13,00",
+        "invoice_number": "19FT 002/46",
+        "nif_buyer": "510776914",
+        "iva_amount": "2,43",
+        "nif_seller": "500602760"
+      }
+    },
+    {
+      "id": "20210318_111820",
+      "image": "images/20210318_111820.jpg",
+      "image_sha256": "642fb5d9017938f1f0f03854ac6e1e9b43e95b84fb80eb5f55ad4fcdee989473",
+      "label": "labels_original/20210318_111820.txt",
+      "label_sha256": "803e19a302ab183d44a5798f7e72303bc69afcf44681c0b010fa3bcd849405bc",
+      "fields": {
+        "company": "jmtd - ferragens do combro lda",
+        "date": "18/01/2019",
+        "address": "calçada do combro nº3, 1200-110 lisboa",
+        "total": "32,00",
+        "invoice_number": "A/28564",
+        "nif_buyer": "510776914",
+        "iva_amount": "5,98",
+        "nif_seller": "513 350 535"
+      }
+    },
+    {
+      "id": "20210318_113425",
+      "image": "images/20210318_113425.jpg",
+      "image_sha256": "cbd3f5d14926b39d30cf8f0d6296354b6503b90c94a4505e8d8d1fd1db4a935e",
+      "label": "labels_original/20210318_113425.txt",
+      "label_sha256": "2dbd897b8ab2d8ea9ab07be675b05ce9d49bd54d9911b1edd687b120fa3cd8a7",
+      "fields": {
+        "company": "nascimento da silva filhos lda",
+        "date": "2019/01/24",
+        "address": "1070 029 lisboa",
+        "total": "73,80",
+        "invoice_number": "00470178",
+        "nif_buyer": "",
+        "iva_amount": "",
+        "nif_seller": ""
+      }
+    },
+    {
+      "id": "20210318_122114",
+      "image": "images/20210318_122114.jpg",
+      "image_sha256": "e23070fc220ddb307ee4f2544a5db3b88f8540d056e60a47603359f337875919",
+      "label": "labels_original/20210318_122114.txt",
+      "label_sha256": "185ec33b0c837af1fdb2a071420bd9c8adf207eb1aa6328240e08ca1b211ff72",
+      "fields": {
+        "company": "sulaman minimercado",
+        "date": "2019/02/04",
+        "address": "rua das pretas,21 1150-270 lisboa",
+        "total": "19,98",
+        "invoice_number": "A/26752",
+        "nif_buyer": "510776914",
+        "iva_amount": "3,74",
+        "nif_seller": "513889949"
+      }
+    },
+    {
+      "id": "20210318_122424",
+      "image": "images/20210318_122424.jpg",
+      "image_sha256": "e63c0c8622c98bfe3f461f7a25041a45f23746f4b8570a6a23895f11965901c5",
+      "label": "labels_original/20210318_122424.txt",
+      "label_sha256": "52992da20d9303c4b1ab535e7dac8ff5991066920ce7168d59c09ec1323372a2",
+      "fields": {
+        "company": "alves bandeira, s.a.",
+        "date": "2019-02-01",
+        "address": "3350-110 vila nova de poiares",
+        "total": "10,84",
+        "invoice_number": "479A2/125516",
+        "nif_buyer": "510776914",
+        "iva_amount": "2,03",
+        "nif_seller": "500433402"
+      }
+    },
+    {
+      "id": "20210318_172300",
+      "image": "images/20210318_172300.jpg",
+      "image_sha256": "c511ac4dd95bd33b2ff5015efa186c94d7ac8578028624bba268a63e44fac4ab",
+      "label": "labels_original/20210318_172300.txt",
+      "label_sha256": "7a9b49da4d65611dbc9a084833ba431685dbf11e4e83bc0b95c2156df0c0f07f",
+      "fields": {
+        "company": "penha da graca ferragens unip, lda",
+        "date": "2019-01-29",
+        "address": "rua penha franca no63 a-b-c-d 1170-300 lisboa",
+        "total": "16,00",
+        "invoice_number": "1A1901/608",
+        "nif_buyer": "510776914",
+        "iva_amount": "2,99",
+        "nif_seller": "510010970"
+      }
+    },
+    {
+      "id": "20210318_172420",
+      "image": "images/20210318_172420.jpg",
+      "image_sha256": "4df60ec240074eeea9d78bb428b9b72eaa91f0993ee2c18be0725aba7812bd6d",
+      "label": "labels_original/20210318_172420.txt",
+      "label_sha256": "42728068703030476e34fa01d9c58f055cf1089bb7b6e48afa6ea7a47b3f12cb",
+      "fields": {
+        "company": "carvalho, batista, lda",
+        "date": "2019-01-30",
+        "address": "rua d. estefania, 191-b",
+        "total": "179,17",
+        "invoice_number": "679 - 17",
+        "nif_buyer": "510776914",
+        "iva_amount": "33,50",
+        "nif_seller": "500537380"
+      }
+    },
+    {
+      "id": "20210318_201052",
+      "image": "images/20210318_201052.jpg",
+      "image_sha256": "9a0be7969541c416dce08444efb81908c02a12e84283aadbfd5e0d4a8b44812e",
+      "label": "labels_original/20210318_201052.txt",
+      "label_sha256": "5d02967e2240df59ed1e952b9ac8b3103845aa0984e15fcbd00678ee02ae9cdb",
+      "fields": {
+        "company": "a vida portuguesa",
+        "date": "2019-01-19",
+        "address": "rua ivens 2 1200-227 lisboa",
+        "total": "38,40",
+        "invoice_number": "2019A15/1900275",
+        "nif_buyer": "510776914",
+        "iva_amount": "7,18",
+        "nif_seller": "508072000"
+      }
+    },
+    {
+      "id": "20210318_201242",
+      "image": "images/20210318_201242.jpg",
+      "image_sha256": "6a55fa557e4f83dc08c8a7fda7c0a989d4dbda5f33137e01ee5da0809ed21ae1",
+      "label": "labels_original/20210318_201242.txt",
+      "label_sha256": "63891235facc5e4d393b1ea2bd38edf10d9f9c17f3c11d544ebc717a2713a372",
+      "fields": {
+        "company": "a padaria portuguesa",
+        "date": "2019-01-06",
+        "address": "praca luis de camies nº 44 1200-243 lisboa",
+        "total": "12.99",
+        "invoice_number": "011/2395780",
+        "nif_buyer": "510776914",
+        "iva_amount": "2,43",
+        "nif_seller": "509323065"
+      }
+    },
+    {
+      "id": "20210318_201429",
+      "image": "images/20210318_201429.jpg",
+      "image_sha256": "1f03d689cf3593a7f10b96ce96f1efff294ef99ecf73d6bcddd230f15b64b0f6",
+      "label": "labels_original/20210318_201429.txt",
+      "label_sha256": "d857c99dcb5f31a64f459e9d0ab3514328b5d713253e93659e4d75cad19ccb42",
+      "fields": {
+        "company": "super frutas do calhariz",
+        "date": "2019/01/02",
+        "address": "largo calhariz, 1 1200-086 lisboa",
+        "total": "9,84",
+        "invoice_number": "A/574017",
+        "nif_buyer": "510776914",
+        "iva_amount": "0,56",
+        "nif_seller": "509684122"
+      }
+    },
+    {
+      "id": "20210318_201639",
+      "image": "images/20210318_201639.jpg",
+      "image_sha256": "5b65c5f019cf21fd2f057fe11d481f042b70dda6eb11aea828b45cc940fc5af7",
+      "label": "labels_original/20210318_201639.txt",
+      "label_sha256": "0db1c7b6ba37c3c0f08a15588ce350a396d076ec58f449172bbb5fcd084f5c17",
+      "fields": {
+        "company": "dia portugal",
+        "date": "2019-01-05",
+        "address": "qta fonte edf alvares cabral 02770-190 paço arcos",
+        "total": "6,25",
+        "invoice_number": "021140420190102/00000150",
+        "nif_buyer": "510776914",
+        "iva_amount": "0,97",
+        "nif_seller": "PT503003808"
+      }
+    }
+  ]
+}
