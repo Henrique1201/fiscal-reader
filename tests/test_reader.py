@@ -44,36 +44,53 @@ class ReaderTests(unittest.TestCase):
                 "itens": [{name: "inventado" for name in ITEM_FIELDS}],
                 "observacoes": None,
             }
-            output["itens"][0]["categoria_item"] = "Papelaria"
             rows = _rows(path, features, output)
         self.assertEqual(len(rows), 1)
-        self.assertEqual(rows[0]["numero"], "42")
+        self.assertEqual(rows[0]["data_emissao"], "2026-11-04")
         self.assertEqual(rows[0]["descricao"], "Papel A4")
-        self.assertEqual(rows[0]["categoria_item"], "Papelaria")
+        self.assertEqual(rows[0]["quantidade"], "2.0000")
+        self.assertEqual(rows[0]["valor_unitario"], "10.00")
+        self.assertEqual(rows[0]["valor_total_item"], "20.00")
         self.assertEqual(set(rows[0]), set(CSV_FIELDS))
 
-    def test_structured_api_response_and_local_csv(self):
+    def test_xml_csv_uses_structured_items_without_llm(self):
         with tempfile.TemporaryDirectory() as folder:
             path = Path(folder) / "nota.xml"
             csv_path = Path(folder) / "resultado.csv"
             path.write_text(XML, encoding="utf-8")
+            with patch("fiscal_reader.cli.interpret") as interpret_mock:
+                self.assertEqual(main([str(path), "-o", str(csv_path)]), 0)
+            interpret_mock.assert_not_called()
+            with csv_path.open(encoding="utf-8-sig", newline="") as file:
+                rows = list(csv.DictReader(file, delimiter=";"))
+            self.assertEqual(rows[0]["descricao"], "Papel A4")
+            self.assertEqual(rows[0]["valor_total_item"], "20.00")
+            self.assertEqual(rows[0]["status_revisao"], "extraido_xml")
+
+    def test_structured_api_response_and_local_csv(self):
+        with tempfile.TemporaryDirectory() as folder:
+            path = Path(folder) / "foto.jpg"
+            csv_path = Path(folder) / "resultado.csv"
+            path.write_bytes(b"imagem simulada")
             result = {
                 "cabecalho": {name: None for name in HEADER_FIELDS},
-                "itens": [{name: None for name in ITEM_FIELDS}],
+                "itens": [{"descricao": "Papel A4", "quantidade": "2", "valor_unitario": "10.00", "valor_total_item": "20.00"}],
                 "observacoes": None,
             }
-            result["itens"][0]["categoria_item"] = "Papelaria"
             response = {"candidates": [{"content": {"parts": [{"text": json.dumps(result)}]}}]}
             fake = io.BytesIO(json.dumps(response).encode())
-            with patch.dict(os.environ, {"GEMINI_API_KEY": "teste"}), patch("urllib.request.urlopen", return_value=fake) as urlopen:
+            with patch.dict(os.environ, {"GEMINI_API_KEY": "teste"}), patch(
+                "fiscal_reader.extract.read_image",
+                return_value=[{"texto": "Papel A4 2 x 10,00 20,00", "confianca": 0.99, "caixa": [1, 2, 200, 20]}],
+            ), patch("urllib.request.urlopen", return_value=fake) as urlopen:
                 self.assertEqual(main([str(path), "-o", str(csv_path)]), 0)
             request = urlopen.call_args.args[0]
             self.assertIn(b"Papel A4", request.data)
             self.assertEqual(request.headers["X-goog-api-key"], "teste")
             with csv_path.open(encoding="utf-8-sig", newline="") as file:
                 rows = list(csv.DictReader(file, delimiter=";"))
-            self.assertEqual(rows[0]["valor_total_nota"], "20.00")
-            self.assertEqual(rows[0]["categoria_item"], "Papelaria")
+            self.assertEqual(rows[0]["valor_total_item"], "20.00")
+            self.assertEqual(rows[0]["quantidade"], "2")
 
     def test_paddle_lines_are_passed_as_features(self):
         class Prediction:
@@ -179,12 +196,16 @@ class ReaderTests(unittest.TestCase):
             "itens": [{name: None for name in ITEM_FIELDS}],
             "observacoes": None,
         }
-        response = {"message": {"content": json.dumps(answer)}}
         with tempfile.TemporaryDirectory() as folder:
-            path = Path(folder) / "nota.xml"
+            path = Path(folder) / "foto.jpg"
             csv_path = Path(folder) / "notas.csv"
-            path.write_text(XML, encoding="utf-8")
+            path.write_bytes(b"imagem simulada")
+            answer["itens"][0].update({"descricao": "Papel A4", "quantidade": "2", "valor_unitario": "10.00", "valor_total_item": "20.00"})
+            response = {"message": {"content": json.dumps(answer)}}
             with patch.dict(os.environ, {"GEMINI_API_KEY": ""}), patch(
+                "fiscal_reader.extract.read_image",
+                return_value=[{"texto": "Papel A4 2 x 10,00 20,00", "confianca": 0.99, "caixa": [1, 2, 200, 20]}],
+            ), patch(
                 "urllib.request.urlopen", return_value=io.BytesIO(json.dumps(response).encode())
             ) as urlopen:
                 self.assertEqual(main(["--provider", "ollama", str(path), "-o", str(csv_path)]), 0)
@@ -196,7 +217,7 @@ class ReaderTests(unittest.TestCase):
             self.assertFalse(body["stream"])
             with csv_path.open(encoding="utf-8-sig", newline="") as file:
                 rows = list(csv.DictReader(file, delimiter=";"))
-            self.assertEqual(rows[0]["numero"], "42")
+            self.assertEqual(rows[0]["descricao"], "Papel A4")
 
     def test_ollama_missing_model_message(self):
         def missing(*_args, **_kwargs):
