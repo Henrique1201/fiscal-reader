@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#12253b">
+    <title>Leitor de comprovantes</title>
+    <link rel="stylesheet" href="/app.css">
+    <script src="/app.js" defer></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="/" aria-label="Leitor de comprovantes, início">
+          <span class="brand-icon" aria-hidden="true">
+            <svg viewBox="0 0 32 32" fill="none"><path d="M7 3h18v25l-4-2.5-5 2.5-5-2.5L7 28V3Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M11 10h10M11 15h10M11 20h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </span>
+          <span>fiscal<span class="brand-accent">reader</span></span>
+        </a>
+        <div class="topbar-right">
+          <span class="local-pill"><span class="pulse-dot"></span> Interface local</span>
+          <span id="ollamaBadge" class="service-pill" role="status">Verificando Ollama…</span>
+        </div>
+      </header>
+
+      <main>
+        <section class="intro" aria-labelledby="pageTitle">
+          <div>
+            <p class="eyebrow">OCR + IA PARA COMPROVANTES</p>
+            <h1 id="pageTitle">Dos arquivos para uma tabela de itens.</h1>
+            <p class="intro-copy">Envie fotos, PDFs ou XMLs. Confira descrição, quantidade, preço e data antes de exportar.</p>
+          </div>
+          <div class="intro-steps" aria-label="Etapas do processamento">
+            <span><b>01</b> Envie</span><i aria-hidden="true"></i>
+            <span><b>02</b> Revise</span><i aria-hidden="true"></i>
+            <span><b>03</b> Exporte</span>
+          </div>
+        </section>
+
+        <div class="workspace">
+          <aside class="panel control-panel" aria-labelledby="filesTitle">
+            <div class="panel-head">
+              <div><span class="section-number">01</span><h2 id="filesTitle">Arquivos</h2></div>
+              <span id="fileCounter" class="count-pill">0 arquivos</span>
+            </div>
+
+            <div id="dropZone" class="drop-zone" role="button" tabindex="0" aria-label="Selecionar arquivos ou arrastar arquivos aqui">
+              <input id="fileInput" type="file" multiple accept=".jpg,.jpeg,.png,.tif,.tiff,.pdf,.xml,image/jpeg,image/png,image/tiff,application/pdf,text/xml,application/xml">
+              <span class="upload-icon" aria-hidden="true">
+                <svg viewBox="0 0 48 48" fill="none"><path d="M24 32V10m0 0-8 8m8-8 8 8" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 31v6a3 3 0 0 0 3 3h22a3 3 0 0 0 3-3v-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
+              </span>
+              <strong>Arraste seus arquivos aqui</strong>
+              <span>ou <u>escolha no computador</u></span>
+              <small>JPG, PNG, TIFF, PDF ou XML · até 20 MB por arquivo</small>
+            </div>
+
+            <div id="fileList" class="file-list" aria-live="polite">
+              <p class="file-list-empty">Os arquivos adicionados aparecem aqui.</p>
+            </div>
+
+            <div class="settings-block">
+              <div class="settings-title"><span class="section-number">02</span><h2>Processamento</h2></div>
+              <label for="providerSelect">Interpretação</label>
+              <select id="providerSelect">
+                <option value="ollama">Qwen local (Ollama)</option>
+                <option value="gemini">Gemini API</option>
+              </select>
+              <p id="providerHint" class="field-hint">O texto reconhecido permanece no computador.</p>
+
+              <div class="field-grid">
+                <div>
+                  <label for="ocrSelect">OCR</label>
+                  <select id="ocrSelect">
+                    <option value="paddle">PaddleOCR</option>
+                    <option value="tesseract">Tesseract</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="modelInput">Modelo <span class="optional">opcional</span></label>
+                  <input id="modelInput" type="text" maxlength="100" placeholder="qwen3:4b-instruct" autocomplete="off" spellcheck="false">
+                </div>
+              </div>
+              <p class="field-hint">XML de NF-e é lido diretamente, sem OCR ou LLM.</p>
+            </div>
+
+            <button id="processButton" class="button button-primary" type="button" disabled>
+              <span class="button-icon" aria-hidden="true">✦</span>
+              <span id="processLabel">Processar arquivos</span>
+            </button>
+            <p id="processStatus" class="process-status" role="status" aria-live="polite"></p>
+          </aside>
+
+          <div class="right-column">
+            <section class="panel results-panel" aria-labelledby="resultsTitle">
+              <div class="panel-head results-head">
+                <div><span class="section-number">03</span><h2 id="resultsTitle">Itens para revisar</h2></div>
+                <div class="head-actions">
+                  <button id="addRowButton" class="button button-quiet" type="button" disabled>+ Adicionar item</button>
+                  <button id="exportButton" class="button button-secondary" type="button" disabled>Baixar CSV</button>
+                </div>
+              </div>
+              <div class="summary-strip">
+                <span><strong id="itemCount">0</strong> itens</span>
+                <span><strong id="reviewCount">0</strong> para revisar</span>
+                <span><strong id="doneCount">0</strong> conferidos</span>
+              </div>
+              <div id="emptyResults" class="empty-results">
+                <span class="empty-illustration" aria-hidden="true">▤</span>
+                <h3>Os itens aparecerão aqui</h3>
+                <p>Adicione um arquivo e clique em “Processar arquivos”. Depois, corrija os campos diretamente na tabela.</p>
+              </div>
+              <div id="tableWrap" class="table-wrap" tabindex="0" aria-label="Tabela de itens; role para os lados para ver todas as colunas" hidden>
+                <p class="table-hint">Deslize para os lados para ver todas as colunas e marcar os itens conferidos.</p>
+                <table>
+                  <thead><tr>
+                    <th>Arquivo</th><th>Data</th><th>Item</th><th>Qtd.</th><th>Preço unit.</th><th>Preço item</th><th>Revisão</th><th><span class="sr-only">Remover</span></th>
+                  </tr></thead>
+                  <tbody id="resultsBody"></tbody>
+                </table>
+              </div>
+              <div class="results-footer">
+                <p>Campos vazios precisam de conferência. O CSV inclui as correções feitas nesta tabela.</p>
+                <button id="clearButton" class="text-button" type="button" disabled>Limpar tudo</button>
+              </div>
+            </section>
+
+            <section class="panel source-panel" aria-labelledby="sourceTitle">
+              <div class="panel-head source-head">
+                <div><span class="section-number">04</span><h2 id="sourceTitle">Conferir documento</h2></div>
+                <span id="selectedFilename" class="selected-file">Selecione um arquivo</span>
+              </div>
+              <div class="source-tabs" role="tablist" aria-label="Visualização do documento">
+                <button id="previewTab" class="source-tab active" type="button" role="tab" aria-selected="true">Imagem ou PDF</button>
+                <button id="ocrTab" class="source-tab" type="button" role="tab" aria-selected="false">Texto do OCR</button>
+              </div>
+              <div id="previewPane" class="source-content" role="tabpanel">
+                <div class="source-placeholder">Selecione um arquivo na lista ou uma linha da tabela para conferir a origem.</div>
+              </div>
+              <div id="ocrPane" class="source-content ocr-content" role="tabpanel" hidden>
+                <pre id="ocrText">O texto reconhecido aparecerá após o processamento.</pre>
+              </div>
+            </section>
+          </div>
+        </div>
+      </main>
+      <footer>Processamento local no seu navegador e servidor Python · Revise os dados antes de usá-los.</footer>
+    </div>
+  </body>
+</html>
